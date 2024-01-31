@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.keepnotes.databinding.ActivityMainBinding
-import com.example.keepnotes.view.InsertFragment
+import com.example.keepnotes.view.GetAllNotes
+import com.example.keepnotes.InsertFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

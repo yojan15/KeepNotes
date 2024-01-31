@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ffecce"
     android:id="@+id/insertNoteFrame"
-    tools:context=".view.InsertFragment">
+    tools:context=".InsertFragment">
 
     <EditText
         android:id="@+id/title"
