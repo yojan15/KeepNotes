@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
         binding.addNote.setOnClickListener {
             val intent = Intent(this,InsertActivity::class.java)
             startActivity(intent)
+
+
         }
     }
 }
