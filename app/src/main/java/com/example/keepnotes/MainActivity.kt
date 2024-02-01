@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                 Log.e("getAll","data is visible")
                 binding.recyclerView.adapter = NoteAdapter(database.noteDao().getAllNote())
             }
-
         binding.addNote.setOnClickListener {
             val intent = Intent(this,InsertActivity::class.java)
             startActivity(intent)
