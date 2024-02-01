@@ -10,7 +10,6 @@ import com.example.keepnotes.databinding.ActivityInsertBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 class InsertActivity : AppCompatActivity() {
     private lateinit var binding : ActivityInsertBinding
     private lateinit var database: NoteDatabase
@@ -25,7 +24,7 @@ class InsertActivity : AppCompatActivity() {
             val insertText = binding.note.text.toString()
 
             if (insertText.isNotBlank()) {
-                CoroutineScope(Dispatchers.Main).launch {
+                CoroutineScope(Dispatchers.IO).launch {
                     try {
                         database.noteDao().insertNote(Note(0, insertTitle, insertText))
                         Log.e("inserted", "Note Added")
