@@ -22,8 +22,10 @@ class NoteAdapter(private var notes : MutableList<Note>) :RecyclerView.Adapter<N
         holder.itemView.apply {
             val title = findViewById<TextView>(R.id.noteTitle)
             val note = findViewById<TextView>(R.id.noteText)
-            title.text = notes[position].toString()
-            note.text = notes[position].toString()
+
+            val currentNote = notes[position]
+            title.text = currentNote.title
+            note.text = currentNote.note
         }
     }
 }
