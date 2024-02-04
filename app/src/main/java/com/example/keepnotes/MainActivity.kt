@@ -19,11 +19,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var database: NoteDatabase
     private lateinit var adapter: NoteAdapter
     private val notes = mutableListOf<Note>()
+    companion object {
+        const val EDIT_NOTE_REQUEST_CODE = 1 // or any other appropriate value
+    }
+
+    private var selectedNotePosition: Int = -1 // Initialize with an invalid value
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         database = NoteDatabase.getDatabase(this)
         adapter = NoteAdapter(notes, database)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -63,6 +70,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        adapter.setOnNoteClickListener(object : NoteAdapter.OnNoteClickListener {
+            override fun onNoteClick(position: Int) {
+                selectedNotePosition = position
+                val intent = Intent(this@MainActivity , EditNoteActivity::class.java)
+                intent.putExtra("note",notes[position])
+                startActivityForResult(intent , EDIT_NOTE_REQUEST_CODE)
+            }
+
+        })
+
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
@@ -71,4 +88,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == EDIT_NOTE_REQUEST_CODE && resultCode == RESULT_OK) {
+            val updatedNote = data?.getSerializableExtra("note") as? Note
+            updatedNote?.let {
+                adapter.updateNoteAtPosition(selectedNotePosition, it)
+            }
+        }
+    }
+
 }
+
